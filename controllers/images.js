@@ -5,6 +5,7 @@ exports.addImages = (req, res)=>{
         carId: req.body.carId,
         images: req.file.buffer
     });
+    image.images.contentType = 'image/jpeg';
 
     image.save()
         .then(() => {res.status(200).json({message: 'Images saved successfully'})})
@@ -13,6 +14,6 @@ exports.addImages = (req, res)=>{
 
 exports.getAllCars = (req, res)=>{
     Image.find()
-        .then((images) => {res.status(201).json(images)})
+        .then((images) => {res.contentType('json').send(images)})
         .catch(err => {res.status(400).json({error: 'failed to load images ' + err})});
 }
